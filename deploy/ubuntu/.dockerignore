@@ -1,0 +1,6 @@
+*
+!Dockerfile
+!requirements.lock
+!wheelhouse/
+!wheelhouse/*.whl
+!entrypoint.sh

@@ -1,0 +1,17 @@
+{
+  "base_image": "python@sha256:22eafb370920ad8b429e0aec3fff433e0669968519f5d60469d83729c138b28b",
+  "build_dependency_count": 7,
+  "platform": "linux/amd64",
+  "python": "3.14.10",
+  "runtime_dependency_count": 35,
+  "source_commit": "5fcdcc60594ea4ec6db471b420f3a35754c3492d",
+  "source_date_epoch": 1795588308,
+  "source_repository": "https://github.com/mental1104/pyicloud",
+  "version": "2026.11.3.dev10",
+  "version_anchor": {
+    "tag": "2026.11.2",
+    "commit": "292875b0c7e8c9deb54f5ec47cff3d1fcca2e58a"
+  },
+  "wheel": "pyicloud-2026.11.3.dev10-py3-none-any.whl",
+  "wheel_sha256": "aa95e3e9575b8ee8b873870bebb5882ce491816e55538e672387dcd1fa4e7f69"
+}

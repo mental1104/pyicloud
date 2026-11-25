@@ -1,0 +1,25 @@
+name: pyicloud-notes
+
+services:
+  notes:
+    image: ${PYICLOUD_IMAGE:?Set PYICLOUD_IMAGE to the verified local image ID}
+    pull_policy: never
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 64
+    restart: "no"
+    logging:
+      driver: none
+    environment:
+      PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777
+    volumes:
+      - ./state:/state
+      - ./exports:/exports

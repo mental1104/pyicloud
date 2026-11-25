@@ -16,6 +16,7 @@ Releases from `2.0.0b6` up to `2.7.0` follow [Semantic Versioning](https://semve
 
 ### Changed
 
+- Add a hash-locked, offline-buildable on-demand Ubuntu Docker CLI deployment.
 - Recognize queued contributor CI runs without reporting a missing-run approval timeout.
 - Resolve Home Assistant release metadata through authenticated CI to avoid shared-runner API rate limits.
 
