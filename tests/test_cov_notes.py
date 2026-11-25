@@ -863,7 +863,9 @@ class NoteRenderingBranchCoverageTest(unittest.TestCase):
         html = _render(
             "abc", [{"length": 3, "font_name": "Comic Sans MS", "font_size": 18.0}]
         )
-        self.assertIn('font-family:"Comic Sans MS", "Comic Sans"', html)
+        self.assertIn(
+            "font-family:&quot;Comic Sans MS&quot;, &quot;Comic Sans&quot;", html
+        )
         self.assertIn("font-size:18pt", html)
 
     def test_emphasis_and_highlight_palette(self) -> None:

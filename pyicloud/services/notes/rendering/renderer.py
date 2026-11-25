@@ -103,14 +103,25 @@ _FONT_STACKS = {
 }
 
 
+def _css_string(value: str) -> str:
+    """Quote a CSS string without letting its contents become declarations."""
+    escaped: list[str] = []
+    for char in value:
+        if char == "\x00":
+            escaped.append("\ufffd")
+        elif char in ('"', "\\"):
+            escaped.append("\\" + char)
+        elif ord(char) < 32 or ord(char) == 127:
+            escaped.append(f"\\{ord(char):x} ")
+        else:
+            escaped.append(char)
+    return '"' + "".join(escaped) + '"'
+
+
 def _css_font_stack(name: str) -> str:
     stack = _FONT_STACKS.get(name)
     if stack:
         return ", ".join(stack)
-    try:
-        safe = name.replace('"', "'")
-    except Exception:
-        safe = name
     lower = name.lower()
     generic = "sans-serif"
     if "mono" in lower or "courier" in lower or "code" in lower:
@@ -119,7 +130,7 @@ def _css_font_stack(name: str) -> str:
         generic = "serif"
     elif "comic" in lower or "chalk" in lower or "hand" in lower:
         generic = "cursive"
-    return f'"{safe}", {generic}'
+    return f"{_css_string(name)}, {generic}"
 
 
 @dataclass(frozen=True)
@@ -604,10 +615,9 @@ def render_note_fragment(  # noqa: S3776
             deco.append("line-through")
         if deco:
             styles.append(f"text-decoration:{' '.join(deco)}")
-        # Use single quotes for the style attribute to safely include quoted
-        # font-family names (e.g., "Comic Sans MS") without breaking HTML.
+        # CSS string quoting and HTML attribute escaping protect different layers.
         if styles:
-            style_attr = "; ".join(styles)
+            style_attr = html.escape("; ".join(styles), quote=True)
             styled = f"<span style='{style_attr}'>{html_text}</span>"
         else:
             styled = html_text
